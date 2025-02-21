@@ -156,7 +156,8 @@ public final class SurvivalistEssentialsItems {
     public static Item registerBook(String name) {
         return registerItem(name, new SurvivalistEssentialsBook(
                 new Item.Properties(),
-                name
+                name,
+                SurvivalistEssentials.MODID
         ), false, true);
     }
 
