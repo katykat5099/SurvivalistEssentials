@@ -14,6 +14,7 @@ import net.minecraft.world.item.component.ItemAttributeModifiers;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ToolMaterial;
 
+import survivalistessentials.SurvivalistEssentials;
 import survivalistessentials.items.item.Bandage;
 import survivalistessentials.items.item.CrudeBandage;
 import survivalistessentials.items.item.Mortar;
@@ -135,7 +136,8 @@ public final class SurvivalistEssentialsItems {
     public static Item registerBook(String name) {
         return make(name, new SurvivalistEssentialsBook(
             new Item.Properties().setId(ResourceKey.create(Registries.ITEM, loc(name))),
-            name
+            name,
+            SurvivalistEssentials.MODID
         ), false, true);
     }
 
