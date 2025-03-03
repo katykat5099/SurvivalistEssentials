@@ -154,20 +154,47 @@ public final class TagManager {
         public static final TagKey<Item> TF_TWILIGHT_OAK_STRIPPED_WOOD = create("twilight_oak_stripped_wood");
 
         // Ecologics
-        public static TagKey<Item> ECO_COCONUT_LOGS = create("coconut_logs");
-        public static TagKey<Item> ECO_WALNUT_LOGS = create("walnut_logs");
-        public static TagKey<Item> ECO_AZALEA_LOGS = create("azalea_logs");
-        public static TagKey<Item> ECO_FLOWERING_AZALEA_LOGS = create("flowering_azalea_logs");
+        public static final TagKey<Item> ECO_COCONUT_LOGS = create("coconut_logs");
+        public static final TagKey<Item> ECO_WALNUT_LOGS = create("walnut_logs");
+        public static final TagKey<Item> ECO_AZALEA_LOGS = create("azalea_logs");
+        public static final TagKey<Item> ECO_FLOWERING_AZALEA_LOGS = create("flowering_azalea_logs");
 
         // Malum
-        public static TagKey<Item> MALUM_RUNEWOOD_LOGS = create("runewood_logs");
-        public static TagKey<Item> MALUM_SOULWOOD_LOGS = create("soulwood_logs");
+        public static final TagKey<Item> MALUM_RUNEWOOD_LOGS = create("runewood_logs");
+        public static final TagKey<Item> MALUM_SOULWOOD_LOGS = create("soulwood_logs");
 
         // Ice and Fire; Dragons
-        public static TagKey<Item> IFD_DREADWOOD_LOGS = create("dreadwood_logs");
+        public static final TagKey<Item> IFD_DREADWOOD_LOGS = create("dreadwood_logs");
 
         // Aquaculture
-        public static TagKey<Item> AQUA_DRIFTWOOD = create("driftwood");
+        public static final TagKey<Item> AQUA_DRIFTWOOD = create("driftwood");
+
+        // Regions Unexplored
+        public static final TagKey<Item> RU_ALPHA_LOGS = create("alpha_logs");
+        public static final TagKey<Item> RU_BAOBAB_LOGS = create("baobab_logs");
+        public static final TagKey<Item> RU_BLACKWOOD_LOGS = create("blackwood_logs");
+        public static final TagKey<Item> RU_BIOSHROOM_LOGS = create("bioshroom_logs");
+        public static final TagKey<Item> RU_BLUE_BIOSHROOM_LOGS = create("blue_bioshroom_logs");
+        public static final TagKey<Item> RU_BRIMWOOD_LOGS = create("brimwood_logs");
+        public static final TagKey<Item> RU_COBALT_LOGS = create("cobalt_logs");
+        public static final TagKey<Item> RU_CYPRESS_LOGS = create("cypress_logs");
+        public static final TagKey<Item> RU_DEAD_LOGS = create("dead_logs");
+        public static final TagKey<Item> RU_EUCALYPTUS_LOGS = create("eucalyptus_logs");
+        public static final TagKey<Item> RU_GREEN_BIOSHROOM_LOGS = create("green_bioshroom_logs");
+        public static final TagKey<Item> RU_JOSHUA_LOGS = create("joshua_logs");
+        public static final TagKey<Item> RU_KAPOK_LOGS = create("kapok_logs");
+        public static final TagKey<Item> RU_LARCH_LOGS = create("larch_logs");
+        public static final TagKey<Item> RU_MAGNOLIA_LOGS = create("magnolia_logs");
+        public static final TagKey<Item> RU_MAPLE_LOGS = create("maple_logs");
+        public static final TagKey<Item> RU_MAUVE_LOGS = create("mauve_logs");
+        public static final TagKey<Item> RU_PALM_LOGS = create("palm_logs");
+        public static final TagKey<Item> RU_PINE_LOGS = create("pine_logs");
+        public static final TagKey<Item> RU_PINK_BIOSHROOM_LOGS = create("pink_bioshroom_logs");
+        public static final TagKey<Item> RU_REDWOOD_LOGS = create("redwood_logs");
+        public static final TagKey<Item> RU_SOCOTRA_LOGS = create("socotra_logs");
+        public static final TagKey<Item> RU_WILLOW_LOGS = create("willow_logs");
+        public static final TagKey<Item> RU_YELLOW_BIOSHROOM_LOGS = create("yellow_bioshroom_logs");
+        public static final TagKey<Item> RU_BRANCHES = create("branches");
 
         private static TagKey<Item> create(String id) {
             return TagKey.create(Registries.ITEM, identifier(id));
