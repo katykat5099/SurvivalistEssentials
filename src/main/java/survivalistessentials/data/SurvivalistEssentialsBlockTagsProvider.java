@@ -92,7 +92,10 @@ public class SurvivalistEssentialsBlockTagsProvider extends BlockTagsProvider {
             .addOptional(SurvivalistEssentialsIntegration.exnihiloLoc("infested_leaves"))
             .addOptional(SurvivalistEssentialsIntegration.exnihiloLoc("infesting_leaves"))
             .addOptionalTag(TagManager.forgeLoc("grass"))
-            .addOptionalTag(TagManager.forgeLoc("bushes"));
+            .addOptionalTag(TagManager.forgeLoc("leaves"))
+            .addOptionalTag(TagManager.forgeLoc("bushes"))
+            .addOptionalTag(SurvivalistEssentialsIntegration.regionsLoc("grass"));
+
 
         this.tag(TagManager.Blocks.BRANCHES)
             .addOptionalTag(SurvivalistEssentialsIntegration.dynamictreesLoc("branches"));
