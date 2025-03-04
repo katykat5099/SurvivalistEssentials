@@ -11,7 +11,7 @@ import net.minecraft.world.level.Level;
 
 import net.minecraftforge.fml.ModList;
 
-import survivalistessentials.data.integration.ModIntegration;
+import survivalistessentials.data.integration.SurvivalistEssentialsIntegration;
 
 public class SurvivalistEssentialsBook extends Item {
 
@@ -25,7 +25,7 @@ public class SurvivalistEssentialsBook extends Item {
 
     @Override
     public InteractionResultHolder<ItemStack> use(Level level, Player playerIn, InteractionHand handIn) {
-        if (ModList.get().isLoaded(ModIntegration.PATCHOULI_MODID)) {
+        if (ModList.get().isLoaded(SurvivalistEssentialsIntegration.PATCHOULI_MODID)) {
             if (level.isClientSide()) {
                 vazkii.patchouli.api.PatchouliAPI.get().openBookGUI(book);
             }

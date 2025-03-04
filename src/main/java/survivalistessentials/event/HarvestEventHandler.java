@@ -34,7 +34,6 @@ import tschipp.carryon.common.carry.CarryOnDataManager;
 import survivalistessentials.common.HarvestBlock;
 import survivalistessentials.common.TagManager;
 import survivalistessentials.config.ConfigHandler;
-import survivalistessentials.data.integration.ModIntegration;
 import survivalistessentials.mixin.AbstractBlockStateAccessor;
 import survivalistessentials.sound.Sounds;
 import survivalistessentials.SurvivalistEssentials;

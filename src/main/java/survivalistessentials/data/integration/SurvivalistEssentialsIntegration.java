@@ -6,7 +6,7 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
 import net.minecraftforge.registries.RegisterEvent;
 
-public final class ModIntegration {
+public final class SurvivalistEssentialsIntegration {
 
     public static final String AYCE_MODID = "allyoucaneat";
     public static final String BMO_MODID = "biomemakeover";
