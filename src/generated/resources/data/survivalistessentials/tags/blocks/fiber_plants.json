@@ -23,7 +23,15 @@
       "required": false
     },
     {
+      "id": "#forge:leaves",
+      "required": false
+    },
+    {
       "id": "#forge:bushes",
+      "required": false
+    },
+    {
+      "id": "#regions_unexplored:grass",
       "required": false
     }
   ]
