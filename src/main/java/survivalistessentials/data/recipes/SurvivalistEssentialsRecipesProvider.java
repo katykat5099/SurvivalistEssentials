@@ -502,7 +502,7 @@ public class SurvivalistEssentialsRecipesProvider extends RecipeProvider {
         // Regions Unexplored
         wrapped = withCondition(consumer, new ModLoadedCondition(SurvivalistEssentialsIntegration.REGIONS_MODID));
         plankRecipeBuilder(wrapped, SurvivalistEssentialsIntegration.RU_ALPHA_PLANKS, TagManager.Items.RU_ALPHA_LOGS, "has_logs");
-        sticksFromBranchRecipeBuilder(consumer, SurvivalistEssentialsIntegration.RU_ACACIA_BRANCH, SurvivalistEssentialsIntegration.REGIONS_MODID, "", "stick_from_acacia_branch");
+        sticksFromBranchRecipeBuilder(wrapped, SurvivalistEssentialsIntegration.RU_ACACIA_BRANCH, SurvivalistEssentialsIntegration.REGIONS_MODID, "", "stick_from_acacia_branch");
         plankRecipeBuilder(wrapped, SurvivalistEssentialsIntegration.RU_BAOBAB_PLANKS, TagManager.Items.RU_BAOBAB_LOGS, "has_logs");
         sticksFromBranchRecipeBuilder(wrapped, SurvivalistEssentialsIntegration.RU_BAOBAB_BRANCH, SurvivalistEssentialsIntegration.REGIONS_MODID, "", "stick_from_baobab_branch");
         sticksFromBranchRecipeBuilder(wrapped, SurvivalistEssentialsIntegration.RU_BIRCH_BRANCH, SurvivalistEssentialsIntegration.REGIONS_MODID, "", "stick_from_birch_branch");
