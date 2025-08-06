@@ -1,7 +1,8 @@
 package survivalistessentials;
 
-import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.fml.loading.FMLEnvironment;
 
 import org.apache.logging.log4j.LogManager;
@@ -17,9 +18,18 @@ public class SurvivalistEssentials {
     public static final Logger LOGGER = LogManager.getFormatterLogger(SurvivalistEssentials.MODID);
 
     public static CommonProxy PROXY;
+    public static IEventBus BUS;
 
     public SurvivalistEssentials() {
-        PROXY = FMLEnvironment.dist == Dist.CLIENT ? new ClientProxy() : new CommonProxy();
+        BUS = FMLJavaModLoadingContext.get().getModEventBus();
+
+        if (FMLEnvironment.dist.isClient()) {
+            BUS.register(new ClientProxy());
+        }
+        else {
+            BUS.register(new CommonProxy());
+        }
+
         PROXY.start();
     }
 
