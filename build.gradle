@@ -4,8 +4,10 @@ plugins {
     id 'net.minecraftforge.gradle' version '[6.0,6.2)'
     id 'org.parchmentmc.librarian.forgegradle' version '1.+'
     id 'org.spongepowered.mixin' version '0.7.+'
-    id 'se.bjurr.gitchangelog.git-changelog-gradle-plugin' version '1.71.8'
-    id 'me.modmuss50.mod-publish-plugin' version '0.7.3'
+    // https://plugins.gradle.org/plugin/me.modmuss50.mod-publish-plugin
+    id 'me.modmuss50.mod-publish-plugin' version '1.0.0'
+    // https://plugins.gradle.org/plugin/se.bjurr.gitchangelog.git-changelog-gradle-plugin
+    id 'se.bjurr.gitchangelog.git-changelog-gradle-plugin' version '3.0.7'
 }
 
 repositories {
@@ -16,22 +18,25 @@ repositories {
     }
     maven { // TOP
         name 'McJty maven'
-        url "https://maven.k-4u.nl"
+        url 'https://maven.k-4u.nl'
     }
     flatDir {
         dirs 'libs'
     }
     maven {
-        name = "Curse Maven"
-        url = "https://cursemaven.com"
+        name = 'Curse Maven'
+        url = 'https://cursemaven.com'
         content {
-            includeGroup "curse.maven"
+            includeGroup 'curse.maven'
         }
     }
     maven {
-        // Patchouli && Provider
-        name = "Blame Jared"
-        url = "https://maven.blamejared.com"
+        name = 'BlameJared Maven (CrT / Bookshelf / JEI (Newer) / vazkii / xyz)'
+        url = 'https://maven.blamejared.com'
+    }
+    maven {
+        name = 'Geckolib'
+        url 'https://dl.cloudsmith.io/public/geckolib3/geckolib/maven/'
     }
     maven {
         name = "GitHubPackages"
@@ -52,7 +57,7 @@ def modid = "${modid}"
 sourceCompatibility = targetCompatibility = compileJava.sourceCompatibility = compileJava.targetCompatibility = '17'
 
 minecraft {
-    mappings channel: "${mappings_channel}", version: "${mappings_version}-${minecraft_version}"
+    mappings channel: 'parchment', version: "${mappings_version}-${minecraft_version}"
 
     runs {
         client {
@@ -127,11 +132,13 @@ dependencies {
 
     compileOnly fg.deobf("curse.maven:carryon-274259:${carryon_version}")
 
-	runtimeOnly fg.deobf("slimeknights.mantle:Mantle:${minecraft_version}-${mantle_version}")
-	runtimeOnly fg.deobf("slimeknights.tconstruct:TConstruct:${minecraft_version}-${tic_version}")
-	runtimeOnly fg.deobf("com.github.wendall911.tinkersurvival:tinkersurvival:${minecraft_version}-${ts_version}") {
+    /*
+    runtimeOnly fg.deobf("slimeknights.mantle:Mantle:${minecraft_version}-${mantle_version}")
+    runtimeOnly fg.deobf("slimeknights.tconstruct:TConstruct:${minecraft_version}-${tic_version}")
+    runtimeOnly fg.deobf("com.github.wendall911.tinkersurvival:tinkersurvival:${minecraft_version}-${ts_version}") {
         transitive = false
     }
+    */
 
     //runtimeOnly fg.deobf("curse.maven:crafttweaker-239197:3918220")
 
@@ -205,8 +212,8 @@ def resourceTargets = ['META-INF/mods.toml', 'pack.mcmeta', '*.mixins.json']
 def replaceProperties = [ 'version': version,
     'issue_tracker': issue_tracker, 'license': license, 'modid': modid, 'display_name': display_name,
     'description': description, 'display_url': display_url, 'update_url': update_url, 'authors': authors,
-    'credits': credits, 'logo_file': logo_file, 'minecraft_version_range': minecraft_version_range,
-    'forge_version_range': forge_version_range, "loader_version_range": loader_version_range
+    'credits': credits, 'logo_file': logo_file, 'forge_version_range': forge_version_range,
+    'forge_mc_version_range': forge_mc_version_range
 ]
 
 processResources {
@@ -214,13 +221,12 @@ processResources {
     inputs.properties replaceProperties
     exclude '.cache'
     replaceProperties.put 'project', project
-
     filesMatching(resourceTargets) {
         expand replaceProperties
     }
 }
 
-jar.finalizedBy('reobfJar', 'signJar')
+jar.finalizedBy('reobfJar')
 
 def updates = tasks.register("generateUpdates", Copy) {
     it.outputs.upToDateWhen {
@@ -235,7 +241,16 @@ def updates = tasks.register("generateUpdates", Copy) {
     it.into 'files/'
 }
 
-def changelogFile = project(":").projectDir.toString() + '/build/libs/' + project.getName() + '-' + version + '-changelog.txt'
+task changelog(type: se.bjurr.gitchangelog.plugin.gradle.GitChangelogTask) {
+    file.set(new File(project(":").projectDir.toString() + '/build/libs/changelog.txt'));
+    templateContent.set(file(project(":").projectDir.toString() + '/files/templates/changelog.mustache').getText('UTF-8'));
+    toRevision.set('HEAD');
+    fromRevision.set("${minecraft_version}-${last_mod_version}");
+}
+
+tasks.build.dependsOn('changelog', 'generateUpdates')
+
+def changelogFile = project(":").projectDir.toString() + '/build/libs/changelog.txt'
 def publishFile = project(":").projectDir.toString() + "/build/libs/${archivesBaseName}-${version}.jar"
 
 publishMods {
@@ -245,6 +260,7 @@ publishMods {
     }
     type = "${release_type}".startsWith("release") ? STABLE : ("${release_type}".startsWith("beta") ? BETA : ALPHA)
     modLoaders.addAll(['forge'])
+    dryRun = providers.environmentVariable('DO_RELEASE').getOrNull() == null
 
     if (project.hasProperty('securseApiKey')) {
         curseforge {
@@ -254,7 +270,6 @@ publishMods {
             clientRequired = true
             serverRequired = true
             minecraftVersions.addAll("${release_versions}".split(','))
-            embeds('spectrelib')
             optional('configured')
             optional('catalogue')
             optional('fruit-trees')
@@ -295,37 +310,6 @@ publishMods {
             optional('regions-unexplored')
         }
     }
-    if (project.hasProperty('seGithubToken')) {
-    }
-}
-
-task changelog(type: se.bjurr.gitchangelog.plugin.gradle.GitChangelogTask) {
-    file = new File(changelogFile);
-    templateContent = file('files/templates/changelog.mustache').getText('UTF-8');
-    fromRepo = file("$projectDir");
-    toRef = "HEAD";
-    fromRef = "${minecraft_version}-${last_mod_version}";
-}
-
-tasks.build.dependsOn('changelog', 'generateUpdates')
-
-// Jar Signing
-import net.minecraftforge.gradle.common.tasks.SignJar
-
-task signJar(type: SignJar, dependsOn: jar) {
-    dependsOn 'reobfJar'
-
-    // Skip the task if our secret data isn't available
-    onlyIf {
-        project.hasProperty('keyStore')
-    }
-
-    keyStore = project.keyStore // This needs to be a path to the keystore file
-    alias = project.keyStoreAlias
-    storePass = project.keyStorePass
-    keyPass = project.keyStoreKeyPass
-    inputFile = jar.archiveFile
-    outputFile = jar.archiveFile
 }
 
 publishing {
