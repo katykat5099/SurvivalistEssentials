@@ -61,7 +61,6 @@ minecraft {
                 }
             }
         }
-
         server {
             workingDirectory project.file('run')
             arg "-mixin.config=${mod_id}.mixins.json"
@@ -200,7 +199,7 @@ processResources {
     }
 }
 
-jar.finalizedBy('reobfJar', 'signJar')
+jar.finalizedBy('reobfJar')
 
 def updates = tasks.register("generateUpdates", Copy) {
     it.outputs.upToDateWhen {
@@ -223,25 +222,6 @@ task changelog(type: se.bjurr.gitchangelog.plugin.gradle.GitChangelogTask) {
 }
 
 tasks.build.dependsOn('changelog', 'generateUpdates')
-
-// Jar Signing
-import net.minecraftforge.gradle.common.tasks.SignJar
-
-task signJar(type: SignJar, dependsOn: jar) {
-    dependsOn 'reobfJar'
-
-    // Skip the task if our secret data isn't available
-    onlyIf {
-        project.hasProperty('keyStore')
-    }
-
-    keyStore = project.keyStore // This needs to be a path to the keystore file
-    alias = project.keyStoreAlias
-    storePass = project.keyStorePass
-    keyPass = project.keyStoreKeyPass
-    inputFile = jar.archiveFile
-    outputFile = jar.archiveFile
-}
 
 def changelogFile = project(":").projectDir.toString() + '/build/libs/changelog.txt'
 def publishFile = project(":").projectDir.toString() + "/build/libs/${archivesBaseName}-${version}.jar"
