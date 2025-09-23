@@ -242,6 +242,7 @@ publishMods {
         curseforge {
             accessToken = project.securseApiKey
             projectId = project.securseId
+            projectSlug = project.seSlug
             javaVersions.add(JavaVersion.toVersion("${java_version}"))
             clientRequired = true
             serverRequired = true
@@ -280,6 +281,16 @@ publishMods {
             optional('dynamictrees')
             optional('biomesyougo')
             optional('ecologics')
+        }
+    }
+    if (project.hasProperty('seDiscordWebhook')) {
+        discord {
+            webhookUrl = project.seDiscordWebhook
+            dryRunWebhookUrl = project.discordDryrunWebhook
+            username = "wendall911"
+            content = changelog.map {
+                "# A new version of Survivalist Essentials for Forge ${minecraft_version} has been released! \n" + it
+            }
         }
     }
 }
