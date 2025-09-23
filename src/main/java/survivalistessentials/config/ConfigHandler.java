@@ -26,6 +26,7 @@ public final class ConfigHandler {
 
     private ConfigHandler() {}
 
+    @SuppressWarnings("removal")
     public static void init() {
         ModLoadingContext.get().registerConfig(ModConfig.Type.CLIENT, Client.CONFIG_SPEC);
         ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, Common.CONFIG_SPEC);
@@ -36,6 +37,7 @@ public final class ConfigHandler {
         private static final ForgeConfigSpec CONFIG_SPEC;
         private static final Client CONFIG;
         private BooleanValue ENABLE_FAIL_SOUND;
+        private BooleanValue INFORM_TCON_COMPAT;
 
         static {
             Pair<Client, ForgeConfigSpec> specPair = new ForgeConfigSpec.Builder().configure(Client::new);
@@ -48,10 +50,22 @@ public final class ConfigHandler {
             ENABLE_FAIL_SOUND = builder
                 .comment("Enables the fail sound if using the wrong tool.")
                 .define("ENABLE_FAIL_SOUND", true);
+            INFORM_TCON_COMPAT = builder
+                .comment("Informs user if Tinkers' Construct is installed and recommends installing Tinkers' Survival.")
+                .define("INFORM_TCON_COMPAT", true);
         }
 
         public static boolean enableFailSound() {
             return CONFIG.ENABLE_FAIL_SOUND.get();
+        }
+
+        public static boolean informTConCompat() {
+            return CONFIG.INFORM_TCON_COMPAT.get();
+        }
+
+        public static void disableTConCompatMessage() {
+            CONFIG.INFORM_TCON_COMPAT.set(false);
+            CONFIG.INFORM_TCON_COMPAT.save();
         }
 
     }
