@@ -1,6 +1,10 @@
 {
   "replace": false,
   "values": [
+    {
+      "id": "tconstruct:kama",
+      "required": false
+    },
     "#forge:shears"
   ]
 }

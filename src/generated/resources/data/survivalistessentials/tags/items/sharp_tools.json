@@ -5,6 +5,22 @@
       "id": "immersiveengineering:revolver",
       "required": false
     },
+    {
+      "id": "tconstruct:kama",
+      "required": false
+    },
+    {
+      "id": "tconstruct:dagger",
+      "required": false
+    },
+    {
+      "id": "tconstruct:cleaver",
+      "required": false
+    },
+    {
+      "id": "tconstruct:sword",
+      "required": false
+    },
     "#survivalistessentials:knife_tools",
     "#survivalistessentials:axe_tools"
   ]

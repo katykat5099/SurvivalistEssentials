@@ -1,4 +1,13 @@
 {
   "replace": false,
-  "values": []
+  "values": [
+    {
+      "id": "tconstruct:mattock",
+      "required": false
+    },
+    {
+      "id": "tconstruct:kama",
+      "required": false
+    }
+  ]
 }
