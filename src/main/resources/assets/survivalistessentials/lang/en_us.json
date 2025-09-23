@@ -1,4 +1,6 @@
 {
+    "message.survivalistessentials.tcon_compat": "It is recommended to install Tinkers' Survival instead of Survivalist Essentials for better compatibility with Tinkers' Construct. It offers the same features and more.",
+    "message.survivalistessentials.tcon_compat.warning": "Warning: Do not install both mods together, if replacing Survivalist Essentials, you'll need to regenerate your world.",
     "itemGroup.survivalistessentials.items": "Survivalist Essentials Items",
     "itemGroup.survivalistessentials.tools": "Survivalist Essentials Tools",
     "itemGroup.survivalistessentials.world": "Survivalist Essentials World",
