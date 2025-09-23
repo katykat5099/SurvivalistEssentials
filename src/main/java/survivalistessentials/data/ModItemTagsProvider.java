@@ -14,7 +14,6 @@ import net.minecraft.world.level.ItemLike;
 import net.minecraftforge.common.Tags;
 import net.minecraftforge.common.data.ExistingFileHelper;
 
-import net.minecraftforge.fml.common.Mod;
 import survivalistessentials.common.TagManager;
 import survivalistessentials.data.integration.ModIntegration;
 import survivalistessentials.items.SurvivalistEssentialsItems;
@@ -40,10 +39,17 @@ public class ModItemTagsProvider extends ItemTagsProvider {
             SurvivalistEssentialsWorld.ROCK_STONE
         );
         getBuilder(TagManager.Items.PICKAXE_TOOLS)
+            .addOptional(ModIntegration.tconLoc("pickaxe"))
+            .addOptional(ModIntegration.tconLoc("pickadze"))
+            .addOptional(ModIntegration.tconLoc("sledge_hammer"))
+            .addOptional(ModIntegration.tconLoc("vein_hammer"))
             .addOptional(ModIntegration.ieLoc("buzzsaw"))
             .addOptional(ModIntegration.ieLoc("drill"))
             .addOptional(ModIntegration.ieLoc("hammer"));
         getBuilder(TagManager.Items.AXE_TOOLS)
+            .addOptional(ModIntegration.tconLoc("mattock"))
+            .addOptional(ModIntegration.tconLoc("hand_axe"))
+            .addOptional(ModIntegration.tconLoc("broad_axe"))
             .addOptional(ModIntegration.ieLoc("buzzsaw"))
             .add(SurvivalistEssentialsItems.CRUDE_HATCHET);
         builder(
@@ -58,10 +64,13 @@ public class ModItemTagsProvider extends ItemTagsProvider {
             SurvivalistEssentialsItems.SHARP_SAW
         );
         getBuilder(TagManager.Items.SHOVEL_TOOLS)
+            .addOptional(ModIntegration.tconLoc("mattock"))
+            .addOptional(ModIntegration.tconLoc("pickadze"))
+            .addOptional(ModIntegration.tconLoc("excavator"))
             .addOptional(ModIntegration.ieLoc("drill"));
-        builder(
-            TagManager.Items.HOE_TOOLS
-        );
+        getBuilder(TagManager.Items.HOE_TOOLS)
+            .addOptional(ModIntegration.tconLoc("mattock"))
+            .addOptional(ModIntegration.tconLoc("kama"));
         builder(
             TagManager.Items.KNIFE_TOOLS,
             SurvivalistEssentialsItems.CRUDE_KNIFE,
@@ -75,9 +84,14 @@ public class ModItemTagsProvider extends ItemTagsProvider {
         );
         getBuilder(TagManager.Items.SHARP_TOOLS)
             .addOptional(ModIntegration.ieLoc("revolver"))
+            .addOptional(ModIntegration.tconLoc("kama"))
+            .addOptional(ModIntegration.tconLoc("dagger"))
+            .addOptional(ModIntegration.tconLoc("cleaver"))
+            .addOptional(ModIntegration.tconLoc("sword"))
             .addTag(TagManager.Items.KNIFE_TOOLS)
             .addTag(TagManager.Items.AXE_TOOLS);
         getBuilder(TagManager.Items.SHEAR_TOOLS)
+            .addOptional(ModIntegration.tconLoc("kama"))
             .addTag(Tags.Items.SHEARS);
         builder(TagManager.Items.ROCK, SurvivalistEssentialsWorld.ROCK_STONE);
         builder(
