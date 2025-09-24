@@ -4,8 +4,8 @@ import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import survivalistessentials.proxy.CommonProxy;
 
@@ -13,11 +13,12 @@ import survivalistessentials.proxy.CommonProxy;
 public class SurvivalistEssentials {
 
     public static final String MODID = "survivalistessentials";
-    public static final Logger LOGGER = LogManager.getFormatterLogger(SurvivalistEssentials.MODID);
+    public static final Logger LOGGER = LoggerFactory.getLogger(SurvivalistEssentials.MODID);
 
     public static CommonProxy PROXY;
     public static IEventBus BUS;
 
+    @SuppressWarnings("removal")
     public SurvivalistEssentials() {
         BUS = FMLJavaModLoadingContext.get().getModEventBus();
 
