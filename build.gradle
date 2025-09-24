@@ -140,7 +140,7 @@ dependencies {
     //runtimeOnly fg.deobf("curse.maven:crafttweaker-239197:3918220")
 
     //Include some examples here for testing other mods
-    //runtimeOnly fg.deobf("curse.maven:configured-457570:4462839")
+    //runtimeOnly fg.deobf("curse.maven:configured-457570:5180900")
     //runtimeOnly fg.deobf("curse.maven:terrablender-563928:${terrablender_version}")
     //runtimeOnly fg.deobf("curse.maven:byg-1070751:${byg_version}")
     //runtimeOnly fg.deobf("curse.maven:tyg-962544:${tyg_version}")
@@ -153,7 +153,7 @@ dependencies {
     //runtimeOnly fg.deobf("curse.maven:biomemakeover-567709:4642570")
     //runtimeOnly fg.deobf("curse.maven:architectury-419699:5137938")
     //runtimeOnly fg.deobf("curse.maven:botania-225643:???")
-    //runtimeOnly fg.deobf("curse.maven:immersiveengineering-231951:3963698")
+    //runtimeOnly fg.deobf("curse.maven:immersiveengineering-231951:6206989")
     //runtimeOnly fg.deobf("curse.maven:twilightforest-227639:3995805")
     //runtimeOnly fg.deobf("curse.maven:catalogue-459701:3873264")
     //runtimeOnly fg.deobf("curse.maven:autoreglib-250363:3857246")
@@ -174,6 +174,11 @@ dependencies {
     //runtimeOnly fg.deobf("curse.maven:malum-484064:4638343")
     //runtimeOnly fg.deobf("curse.maven:citadel-331936:3783096")
     //runtimeOnly fg.deobf("curse.maven:iceandfire-264231:4614465")
+    //runtimeOnly fg.deobf("curse.maven:tinker_things-811436:6603376")
+    //runtimeOnly fg.deobf("curse.maven:json_things-541617:6931396")
+    //runtimeOnly fg.deobf("curse.maven:mutil-351914:6418901") // Required by tetra
+    //runtimeOnly fg.deobf("curse.maven:tetra-289712:6912921")
+    //runtimeOnly fg.deobf("curse.maven:-:")
 }
 
 def commonManifest = {
