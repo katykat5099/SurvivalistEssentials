@@ -174,6 +174,7 @@ dependencies {
     //runtimeOnly fg.deobf("curse.maven:monsterplus-676418:4496903")
     //runtimeOnly fg.deobf("curse.maven:mowziesmobs-250498:5180680")
     //runtimeOnly fg.deobf("curse.maven:xpfromharvest-888441:5038224")
+    //runtimeOnly fg.deobf("curse.maven:tinkers_reforged-376876:6225329")
     //runtimeOnly fg.deobf("curse.maven:-:")
 
     implementation fg.deobf(fileTree(dir: 'libs', include: '*.jar'))
