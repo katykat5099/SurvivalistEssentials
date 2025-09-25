@@ -117,22 +117,22 @@ public class CommonProxy {
         if (ConfigHandler.Common.logModpackData()) {
             ForgeRegistries.BLOCKS.getValues().forEach((block) -> {
                 if (block.defaultBlockState().is(Tags.Blocks.NEEDS_WOOD_TOOL)) {
-                    SurvivalistEssentials.LOGGER.warn("needs_wood_tool - level 0: %s", block);
+                    SurvivalistEssentials.LOGGER.warn("needs_wood_tool - level 0: {}", block);
                 }
                 if (block.defaultBlockState().is(Tags.Blocks.NEEDS_GOLD_TOOL)) {
-                    SurvivalistEssentials.LOGGER.warn("needs_gold_tool - level 0.1: %s", block);
+                    SurvivalistEssentials.LOGGER.warn("needs_gold_tool - level 0.1: {}", block);
                 }
                 if (block.defaultBlockState().is(BlockTags.NEEDS_STONE_TOOL)) {
-                    SurvivalistEssentials.LOGGER.warn("needs_stone_tool - level 1: %s", block);
+                    SurvivalistEssentials.LOGGER.warn("needs_stone_tool - level 1: {}", block);
                 }
                 if (block.defaultBlockState().is(BlockTags.NEEDS_IRON_TOOL)) {
-                    SurvivalistEssentials.LOGGER.warn("needs_iron_tool - level 2: %s", block);
+                    SurvivalistEssentials.LOGGER.warn("needs_iron_tool - level 2: {}", block);
                 }
                 if (block.defaultBlockState().is(BlockTags.NEEDS_DIAMOND_TOOL)) {
-                    SurvivalistEssentials.LOGGER.warn("needs_diamond_tool - level 3: %s", block);
+                    SurvivalistEssentials.LOGGER.warn("needs_diamond_tool - level 3: {}", block);
                 }
                 if (block.defaultBlockState().is(Tags.Blocks.NEEDS_NETHERITE_TOOL)) {
-                    SurvivalistEssentials.LOGGER.warn("needs_netherite_tool - level 4: %s", block);
+                    SurvivalistEssentials.LOGGER.warn("needs_netherite_tool - level 4: {}", block);
                 }
             });
         }
