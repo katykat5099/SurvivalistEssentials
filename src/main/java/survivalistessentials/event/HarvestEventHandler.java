@@ -28,6 +28,8 @@ import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.ModList;
 
+import survivalistessentials.data.integration.SurvivalistEssentialsIntegration;
+import technology.roughness.whitenoise.util.ResourceLocationHelper;
 import tschipp.carryon.common.carry.CarryOnData;
 import tschipp.carryon.common.carry.CarryOnDataManager;
 
@@ -66,7 +68,7 @@ public class HarvestEventHandler {
 
         if (player == null || player instanceof FakePlayer) return;
 
-        if (ModList.get().isLoaded("carryon")) {
+        if (ModList.get().isLoaded(SurvivalistEssentialsIntegration.CARRYON_MODID)) {
             final ItemStack handStack = player.getMainHandItem();
             final ItemStack offhandStack = player.getOffhandItem();
 
@@ -76,6 +78,13 @@ public class HarvestEventHandler {
                     alwaysBreakable = true;
                 }
             }
+        }
+
+        if (ModList.get().isLoaded(SurvivalistEssentialsIntegration.CREATE_MODID)) {
+            final ItemStack handStack = player.getMainHandItem();
+
+            alwaysBreakable = ResourceLocationHelper.getModId(handStack).equals(SurvivalistEssentialsIntegration.CREATE_MODID)
+                && ResourceLocationHelper.getModId(state.getBlock()).equals(SurvivalistEssentialsIntegration.CREATE_MODID);
         }
 
         if (!alwaysBreakable && !player.isCreative()) {

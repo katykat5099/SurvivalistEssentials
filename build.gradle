@@ -185,6 +185,7 @@ dependencies {
     //runtimeOnly fg.deobf("curse.maven:tetra-289712:6912921")
     //runtimeOnly fg.deobf("curse.maven:rhino-416294:6186971") // Required by kubejs
     //runtimeOnly fg.deobf("curse.maven:kubejs-238086:5853326")
+    //runtimeOnly fg.deobf("curse.maven:create-328085:${create_forge_version}")
     //runtimeOnly fg.deobf("curse.maven:-:")
 }
 
@@ -312,6 +313,7 @@ publishMods {
             optional('ice-and-fire-dragons')
             optional('psi')
             optional('regions-unexplored')
+            optional('create')
         }
     }
     if (project.hasProperty('seModrinthId')) {
@@ -328,6 +330,7 @@ publishMods {
             optional('ecologics')
             optional('psi')
             optional('regions-unexplored')
+            optional('create')
         }
     }
     if (project.hasProperty('seDiscordWebhook')) {
