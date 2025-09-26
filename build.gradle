@@ -41,7 +41,7 @@ repositories {
         }
     }
     maven {
-        name = 'wendall911 maven' // Library for wendall911 mods
+        name = 'wendall911 maven'
         url = 'https://raw.githubusercontent.com/wendall911/maven/main/'
     }
 }
@@ -118,8 +118,13 @@ sourceSets.main.resources {
 
 dependencies {
     minecraft "net.minecraftforge:forge:${minecraft_version}-${forge_version}"
-
     annotationProcessor "org.spongepowered:mixin:${mixin_version}:processor"
+
+    implementation fg.deobf(group: 'technology.roughness.whitenoise', name: "whitenoise-${minecraft_version}-forge", version: "${whitenoise_version}")
+    jarJar fg.deobf(group: 'technology.roughness.whitenoise', name: "whitenoise-${minecraft_version}-forge", version: "${whitenoise_version}") {
+        jarJar.pin(it, "${whitenoise_version}")
+        jarJar.ranged(it, "${whitenoise_range}")
+    }
 
     implementation fg.deobf("mezz.jei:jei-${minecraft_version}-forge:${jei_version}")
 
@@ -178,6 +183,8 @@ dependencies {
     //runtimeOnly fg.deobf("curse.maven:json_things-541617:6931396")
     //runtimeOnly fg.deobf("curse.maven:mutil-351914:6418901") // Required by tetra
     //runtimeOnly fg.deobf("curse.maven:tetra-289712:6912921")
+    //runtimeOnly fg.deobf("curse.maven:rhino-416294:6186971") // Required by kubejs
+    //runtimeOnly fg.deobf("curse.maven:kubejs-238086:5853326")
     //runtimeOnly fg.deobf("curse.maven:-:")
 }
 

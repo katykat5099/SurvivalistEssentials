@@ -7,46 +7,34 @@ import java.util.List;
 
 import org.apache.commons.lang3.tuple.Pair;
 
-import net.minecraftforge.common.ForgeConfigSpec;
-import net.minecraftforge.common.ForgeConfigSpec.BooleanValue;
-import net.minecraftforge.common.ForgeConfigSpec.DoubleValue;
-import net.minecraftforge.common.ForgeConfigSpec.IntValue;
-import net.minecraftforge.common.ForgeConfigSpec.ConfigValue;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.config.ModConfig;
-import net.minecraftforge.fml.ModLoadingContext;
-import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.event.config.ModConfigEvent;
+import technology.roughness.whitenoise.config.WhiteNoiseConfigSpec;
 
-import survivalistessentials.SurvivalistEssentials;
 import survivalistessentials.util.ItemUse;
 
-@Mod.EventBusSubscriber(modid = SurvivalistEssentials.MODID, bus = Mod.EventBusSubscriber.Bus.MOD)
 public final class ConfigHandler {
 
-    private ConfigHandler() {}
+    public static final WhiteNoiseConfigSpec CLIENT_SPEC;
+    public static final WhiteNoiseConfigSpec COMMON_SPEC;
 
-    @SuppressWarnings("removal")
-    public static void init() {
-        ModLoadingContext.get().registerConfig(ModConfig.Type.CLIENT, Client.CONFIG_SPEC);
-        ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, Common.CONFIG_SPEC);
+    private static final Client CLIENT;
+    private static final Common COMMON;
+
+    static {
+        final Pair<Client, WhiteNoiseConfigSpec> specPairClient = new WhiteNoiseConfigSpec.Builder().configure(Client::new);
+        final Pair<Common, WhiteNoiseConfigSpec> specPairCommon = new WhiteNoiseConfigSpec.Builder().configure(Common::new);
+
+        CLIENT_SPEC = specPairClient.getRight();
+        CLIENT = specPairClient.getLeft();
+        COMMON_SPEC = specPairCommon.getRight();
+        COMMON = specPairCommon.getLeft();
     }
 
     public static final class Client {
 
-        private static final ForgeConfigSpec CONFIG_SPEC;
-        private static final Client CONFIG;
-        private BooleanValue ENABLE_FAIL_SOUND;
-        private BooleanValue INFORM_TCON_COMPAT;
+        private WhiteNoiseConfigSpec.BooleanValue ENABLE_FAIL_SOUND;
+        private WhiteNoiseConfigSpec.BooleanValue INFORM_TCON_COMPAT;
 
-        static {
-            Pair<Client, ForgeConfigSpec> specPair = new ForgeConfigSpec.Builder().configure(Client::new);
-
-            CONFIG_SPEC = specPair.getRight();
-            CONFIG = specPair.getLeft();
-        }
-
-        Client(ForgeConfigSpec.Builder builder) {
+        Client(WhiteNoiseConfigSpec.Builder builder) {
             ENABLE_FAIL_SOUND = builder
                 .comment("Enables the fail sound if using the wrong tool.")
                 .define("ENABLE_FAIL_SOUND", false);
@@ -56,42 +44,40 @@ public final class ConfigHandler {
         }
 
         public static boolean enableFailSound() {
-            return CONFIG.ENABLE_FAIL_SOUND.get();
+            return CLIENT.ENABLE_FAIL_SOUND.get();
         }
 
         public static boolean informTConCompat() {
-            return CONFIG.INFORM_TCON_COMPAT.get();
+            return CLIENT.INFORM_TCON_COMPAT.get();
         }
 
         public static void disableTConCompatMessage() {
-            CONFIG.INFORM_TCON_COMPAT.set(false);
-            CONFIG.INFORM_TCON_COMPAT.save();
+            CLIENT.INFORM_TCON_COMPAT.set(false);
+            CLIENT.INFORM_TCON_COMPAT.save();
         }
 
     }
 
     public static final class Common {
 
-        private static final ForgeConfigSpec CONFIG_SPEC;
-        private static final Common CONFIG;
-        private DoubleValue FLINT_CHANCE;
-        private DoubleValue HEAL_RATE;
-        private DoubleValue SLOW_DOWN_SPEED;
-        private BooleanValue ENABLE_HUNGER_PENALTY;
-        private IntValue HUNGER;
-        private IntValue SATURATION;
-        private BooleanValue ENABLE_HEALTH_PENALTY;
-        private DoubleValue HEALTH;
-        private DoubleValue STARTING_HEALTH_PENALTY;
-        private IntValue GENERIC_DAMAGE;
-        private BooleanValue INVERT_LIST_TO_WHITELIST;
+        private WhiteNoiseConfigSpec.DoubleValue FLINT_CHANCE;
+        private WhiteNoiseConfigSpec.DoubleValue HEAL_RATE;
+        private WhiteNoiseConfigSpec.DoubleValue SLOW_DOWN_SPEED;
+        private WhiteNoiseConfigSpec.BooleanValue ENABLE_HUNGER_PENALTY;
+        private WhiteNoiseConfigSpec.IntValue HUNGER;
+        private WhiteNoiseConfigSpec.IntValue SATURATION;
+        private WhiteNoiseConfigSpec.BooleanValue ENABLE_HEALTH_PENALTY;
+        private WhiteNoiseConfigSpec.DoubleValue HEALTH;
+        private WhiteNoiseConfigSpec.DoubleValue STARTING_HEALTH_PENALTY;
+        private WhiteNoiseConfigSpec.IntValue GENERIC_DAMAGE;
+        private WhiteNoiseConfigSpec.BooleanValue INVERT_LIST_TO_WHITELIST;
 
         private static final List<String> MODS_LIST = List.of("mods");
         private static final String[] modsStrings = new String[] {};
-        // See: https://github.com/MinecraftForge/MinecraftForge/blob/1.18.x/fmlloader/src/main/java/net/minecraftforge/fml/loading/moddiscovery/ModInfo.java
+        // See: https://github.com/MinecraftWhiteNoise/MinecraftWhiteNoise/blob/1.18.x/fmlloader/src/main/java/net/minecraftforge/fml/loading/moddiscovery/ModInfo.java
         private static final Predicate<Object> modidValidator = s -> s instanceof String
                 && ((String) s).matches("^[a-z][a-z0-9_]{1,63}$");
-        private static ConfigValue<List<? extends String>> MODS;
+        private static WhiteNoiseConfigSpec.ConfigValue<List<? extends String>> MODS;
 
         private static final List<String> ITEMS_LIST = List.of("items");
         private static final String[] itemsStrings = new String[] {
@@ -99,38 +85,31 @@ public final class ConfigHandler {
         };
         private static final Predicate<Object> itemidValidator = s -> s instanceof String
                 && ((String) s).matches("[a-z]+[-]{1}[a-z][a-z0-9_]{1,63}+[:]{1}[a-z_]+");
-        private static ConfigValue<List<? extends String>> ITEMS;
+        private static WhiteNoiseConfigSpec.ConfigValue<List<? extends String>> ITEMS;
 
-        private static BooleanValue LOG_MODPACK_DATA;
+        private static WhiteNoiseConfigSpec.BooleanValue LOG_MODPACK_DATA;
 
         private static final List<String> BLOCK_MODS_LIST = List.of("blockmods");
         private static final String[] blockModsStrings = new String[] {
             "comforts"
         };
-        private static ConfigValue<List<? extends String>> BLOCK_MODS;
+        private static WhiteNoiseConfigSpec.ConfigValue<List<? extends String>> BLOCK_MODS;
 
         private static final List<String> ARMOR_MODS_LIST = List.of("armormods");
         private static final String[] armorModsStrings = new String[] {};
-        private static ConfigValue<List<? extends String>> ARMOR_MODS;
+        private static WhiteNoiseConfigSpec.ConfigValue<List<? extends String>> ARMOR_MODS;
         private static final List<String> ARMOR_LIST = List.of("armor");
         private static final String[] armorStrings = new String[] {};
         private static final Predicate<Object> armoridValidator = s -> s instanceof String
                 && ((String) s).matches("[a-z]+[:]{1}[a-z_]+");
-        private static ConfigValue<List<? extends String>> ARMORS;
+        private static WhiteNoiseConfigSpec.ConfigValue<List<? extends String>> ARMORS;
         private static final List<String> TAG_LIST = List.of("tag");
         private static final String[] tagStrings = new String[] {
             "blacklist_tools"
         };
-        private static ConfigValue<List<? extends String>> TAGS;
+        private static WhiteNoiseConfigSpec.ConfigValue<List<? extends String>> TAGS;
 
-        static {
-            Pair<Common,ForgeConfigSpec> specPair = new ForgeConfigSpec.Builder().configure(Common::new);
-
-            CONFIG_SPEC = specPair.getRight();
-            CONFIG = specPair.getLeft();
-        }
-
-        Common(ForgeConfigSpec.Builder builder) {
+        Common(WhiteNoiseConfigSpec.Builder builder) {
             FLINT_CHANCE = builder
                 .comment("Chance for a successful flint knapping. (1.0 = 100%, 0.4 = 40%, etc.)")
                 .defineInRange("FLINT_CHANCE", 0.6, 0.1, 1.0);
@@ -197,19 +176,19 @@ public final class ConfigHandler {
         }
 
         public static double flintChance() {
-            return CONFIG.FLINT_CHANCE.get();
+            return COMMON.FLINT_CHANCE.get();
         }
 
         public static double healRate() {
-            return CONFIG.HEAL_RATE.get();
+            return COMMON.HEAL_RATE.get();
         }
 
         public static boolean invertListToWhitelist() {
-            return CONFIG.INVERT_LIST_TO_WHITELIST.get();
+            return COMMON.INVERT_LIST_TO_WHITELIST.get();
         }
 
         public static float slowDownSpeed() {
-            double slowDownSpeed = CONFIG.SLOW_DOWN_SPEED.get();
+            double slowDownSpeed = COMMON.SLOW_DOWN_SPEED.get();
 
             return (float) slowDownSpeed;
         }
@@ -219,19 +198,19 @@ public final class ConfigHandler {
         }
 
         public static List<String> getMods() {
-            List<String> mods = (List<String>) CONFIG.MODS.get();
+            List<String> mods = (List<String>) COMMON.MODS.get();
 
             return mods;
         }
 
         public static List<String> getItems() {
-            List<String> items = (List<String>) CONFIG.ITEMS.get();
+            List<String> items = (List<String>) COMMON.ITEMS.get();
 
             return items;
         }
 
         public static boolean logModpackData() {
-            return CONFIG.LOG_MODPACK_DATA.get();
+            return COMMON.LOG_MODPACK_DATA.get();
         }
 
         public static List<String> blockWhitelistMods() {
@@ -241,61 +220,52 @@ public final class ConfigHandler {
         }
 
         public static boolean enableHungerPenalty() {
-            return CONFIG.ENABLE_HUNGER_PENALTY.get();
+            return COMMON.ENABLE_HUNGER_PENALTY.get();
         }
 
         public static int hunger() {
-            return CONFIG.HUNGER.get();
+            return COMMON.HUNGER.get();
         }
 
         public static int saturation() {
-            return CONFIG.SATURATION.get();
+            return COMMON.SATURATION.get();
         }
 
         public static boolean enableHealthPenalty() {
-            return CONFIG.ENABLE_HEALTH_PENALTY.get();
+            return COMMON.ENABLE_HEALTH_PENALTY.get();
         }
 
         public static float health() {
-            double health = CONFIG.HEALTH.get();
+            double health = COMMON.HEALTH.get();
 
             return (float) health;
         }
 
         public static float startingHealthPenalty() {
-            double health = CONFIG.STARTING_HEALTH_PENALTY.get();
+            double health = COMMON.STARTING_HEALTH_PENALTY.get();
             health *= -1;
 
             return (float) health;
         }
 
         public static float genericDamage() {
-            int damage = CONFIG.GENERIC_DAMAGE.get();
+            int damage = COMMON.GENERIC_DAMAGE.get();
 
             return (float) damage;
         }
 
         public static List<String> armorMods() {
-            return (List<String>) CONFIG.ARMOR_MODS.get();
+            return (List<String>) COMMON.ARMOR_MODS.get();
         }
 
         public static List<String> armorItems() {
-            return (List<String>) CONFIG.ARMORS.get();
+            return (List<String>) COMMON.ARMORS.get();
         }
 
         public static List<String> tagList() {
-            return (List<String>) CONFIG.TAGS.get();
+            return (List<String>) COMMON.TAGS.get();
         }
 
-    }
-
-    @SubscribeEvent
-    public static void onFileChange(final ModConfigEvent.Reloading event) {
-        ModConfig config = event.getConfig();
-
-        if (config.getType() == ModConfig.Type.COMMON && config.getModId().equals(SurvivalistEssentials.MODID)) {
-            ItemUse.init();
-        }
     }
 
 }

@@ -22,6 +22,10 @@ import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegisterEvent;
 
+import technology.roughness.whitenoise.config.WhiteNoiseConfig;
+import technology.roughness.whitenoise.config.WhiteNoiseConfigLoader;
+import technology.roughness.whitenoise.platform.Services;
+
 import survivalistessentials.common.CreativeTabs;
 import survivalistessentials.common.HarvestBlock;
 import survivalistessentials.common.SurvivalistEssentialsModule;
@@ -32,6 +36,7 @@ import survivalistessentials.items.SurvivalistEssentialsItems;
 import survivalistessentials.loot.SurvivalistEssentialsLootTables;
 import survivalistessentials.sound.Sounds;
 import survivalistessentials.SurvivalistEssentials;
+import survivalistessentials.util.ItemUse;
 import survivalistessentials.world.effect.SurvivalistEssentialsEffects;
 import survivalistessentials.world.feature.SurvivalistEssentialsFeatures;
 import survivalistessentials.world.SurvivalistEssentialsWorld;
@@ -44,9 +49,16 @@ public class CommonProxy {
     public void start() {
         IEventBus bus = FMLJavaModLoadingContext.get().getModEventBus();
 
-        ConfigHandler.init();
         Sounds.init(bus);
         registerListeners(bus);
+
+        WhiteNoiseConfig commonConfig = WhiteNoiseConfigLoader.add(WhiteNoiseConfig.Type.COMMON, ConfigHandler.COMMON_SPEC, SurvivalistEssentials.MODID);
+        commonConfig.addLoadListener((config, flags) -> {
+            ItemUse.init();
+        });
+        if (Services.PLATFORM.isPhysicalClient()) {
+            WhiteNoiseConfigLoader.add(WhiteNoiseConfig.Type.CLIENT, ConfigHandler.CLIENT_SPEC, SurvivalistEssentials.MODID);
+        }
     }
 
     public void registerListeners(IEventBus bus) {
