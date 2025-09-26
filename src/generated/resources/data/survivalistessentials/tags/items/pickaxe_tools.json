@@ -1,6 +1,10 @@
 {
   "values": [
     {
+      "id": "#minecraft:pickaxes",
+      "required": false
+    },
+    {
       "id": "tconstruct:pickaxe",
       "required": false
     },
@@ -14,6 +18,10 @@
     },
     {
       "id": "tconstruct:vein_hammer",
+      "required": false
+    },
+    {
+      "id": "tetra:modular_sword",
       "required": false
     },
     {
