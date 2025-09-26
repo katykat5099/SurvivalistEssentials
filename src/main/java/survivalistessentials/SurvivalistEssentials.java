@@ -28,8 +28,12 @@ import net.neoforged.neoforge.event.BuildCreativeModeTabContentsEvent;
 import net.neoforged.neoforge.event.server.ServerStartedEvent;
 import net.neoforged.neoforge.registries.RegisterEvent;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import technology.roughness.whitenoise.config.WhiteNoiseConfig;
+import technology.roughness.whitenoise.config.WhiteNoiseConfigLoader;
+import technology.roughness.whitenoise.platform.Services;
 
 import survivalistessentials.common.CreativeTabs;
 import survivalistessentials.common.HarvestBlock;
@@ -39,6 +43,7 @@ import survivalistessentials.common.loot.SurvivalistEssentialsLootConditionTypes
 import survivalistessentials.config.ConfigHandler;
 import survivalistessentials.data.integration.SurvivalistEssentialsIntegration;
 import survivalistessentials.event.AttackEventHandler;
+import survivalistessentials.event.ClientEventHandler;
 import survivalistessentials.event.HarvestEventHandler;
 import survivalistessentials.event.HoeEventHandler;
 import survivalistessentials.event.LivingEquipmentChangeEventHandler;
@@ -55,15 +60,20 @@ import survivalistessentials.world.feature.SurvivalistEssentialsFeatures;
 public class SurvivalistEssentials {
 
     public static final String MODID = "survivalistessentials";
-    public static final Logger LOGGER = LogManager.getFormatterLogger(SurvivalistEssentials.MODID);
+    public static final Logger LOGGER = LoggerFactory.getLogger(SurvivalistEssentials.MODID);
 
     public SurvivalistEssentials(IEventBus bus, Dist dist, ModContainer container) {
         registryInit(bus);
-        ConfigHandler.init(container);
         registerListeners(bus);
         SurvivalistEssentialsModule.initRegistries(bus);
-        bus.addListener(ConfigHandler::onFileChange);
-        bus.addListener(ConfigHandler::loadConfigs);
+
+        WhiteNoiseConfig commonConfig = WhiteNoiseConfigLoader.add(WhiteNoiseConfig.Type.COMMON, ConfigHandler.COMMON_SPEC, SurvivalistEssentials.MODID);
+        commonConfig.addLoadListener((config, flags) -> {
+            ConfigHandler.init();
+        });
+        if (Services.PLATFORM.isPhysicalClient()) {
+            WhiteNoiseConfigLoader.add(WhiteNoiseConfig.Type.CLIENT, ConfigHandler.CLIENT_SPEC, SurvivalistEssentials.MODID);
+        }
     }
 
     public void registerListeners(IEventBus bus) {
@@ -92,6 +102,7 @@ public class SurvivalistEssentials {
             NeoForge.EVENT_BUS.register(PlayerEventHandler.class);
             if (FMLEnvironment.dist == Dist.CLIENT) {
                 NeoForge.EVENT_BUS.register(TooltipEventHandler.class);
+                NeoForge.EVENT_BUS.register(ClientEventHandler.class);
             }
         }
 
@@ -125,22 +136,22 @@ public class SurvivalistEssentials {
         if (ConfigHandler.Common.logModpackData()) {
             BuiltInRegistries.BLOCK.forEach(block -> {
                 if (block.defaultBlockState().is(Tags.Blocks.NEEDS_WOOD_TOOL)) {
-                    SurvivalistEssentials.LOGGER.warn("needs_wood_tool - level 0: %s", block);
+                    SurvivalistEssentials.LOGGER.warn("needs_wood_tool - level 0: {}", block);
                 }
                 if (block.defaultBlockState().is(Tags.Blocks.NEEDS_GOLD_TOOL)) {
-                    SurvivalistEssentials.LOGGER.warn("needs_gold_tool - level 0.1: %s", block);
+                    SurvivalistEssentials.LOGGER.warn("needs_gold_tool - level 0.1: {}", block);
                 }
                 if (block.defaultBlockState().is(BlockTags.NEEDS_STONE_TOOL)) {
-                    SurvivalistEssentials.LOGGER.warn("needs_stone_tool - level 1: %s", block);
+                    SurvivalistEssentials.LOGGER.warn("needs_stone_tool - level 1: {}", block);
                 }
                 if (block.defaultBlockState().is(BlockTags.NEEDS_IRON_TOOL)) {
-                    SurvivalistEssentials.LOGGER.warn("needs_iron_tool - level 2: %s", block);
+                    SurvivalistEssentials.LOGGER.warn("needs_iron_tool - level 2: {}", block);
                 }
                 if (block.defaultBlockState().is(BlockTags.NEEDS_DIAMOND_TOOL)) {
-                    SurvivalistEssentials.LOGGER.warn("needs_diamond_tool - level 3: %s", block);
+                    SurvivalistEssentials.LOGGER.warn("needs_diamond_tool - level 3: {}", block);
                 }
                 if (block.defaultBlockState().is(Tags.Blocks.NEEDS_NETHERITE_TOOL)) {
-                    SurvivalistEssentials.LOGGER.warn("needs_netherite_tool - level 4: %s", block);
+                    SurvivalistEssentials.LOGGER.warn("needs_netherite_tool - level 4: {}", block);
                 }
             });
         }

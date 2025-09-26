@@ -44,6 +44,9 @@ public final class SurvivalistEssentialsIntegration {
     public static final String TS_MODID = "tinkersurvival";
     public static final String CARRYON_MODID = "carryon";
     public static final String REGIONS_MODID = "regions_unexplored";
+    public static final String TETRA_MODID = "tetra";
+    public static final String MINECRAFT_MODID = "minecraft";
+    public static final String CREATE_MODID = "create";
 
     public static Item AQUA_DRIFTWOOD;
     public static Item CHERRY_PLANKS;
@@ -513,6 +516,14 @@ public final class SurvivalistEssentialsIntegration {
 
     public static ResourceLocation regionsLoc(String name) {
         return getLoc(REGIONS_MODID, name);
+    }
+
+    public static ResourceLocation tetraLoc(String name) {
+        return getLoc(TETRA_MODID, name);
+    }
+
+    public static ResourceLocation mcLoc(String name) {
+        return getLoc(MINECRAFT_MODID, name);
     }
 
     private static ResourceLocation getLoc(String modid, String name) {

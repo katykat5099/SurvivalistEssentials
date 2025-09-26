@@ -28,13 +28,14 @@ public class ItemUse {
 
     private static final Map<String, String> toolsMap = new HashMap<>();
 
-    private static final List<String> TOOL_TYPES = new ArrayList<>(
+    public static final List<String> TOOL_TYPES = new ArrayList<>(
         Arrays.asList(
             "pickaxe",
             "pickadze",
             "bow",
             "crossbow",
             "axe",
+            "hatchet",
             "hoe",
             "mattock",
             "kama",
@@ -54,7 +55,8 @@ public class ItemUse {
             "knife",
             "cad",
             "spear",
-            "darkstar"
+            "darkstar",
+            "chisel"
         )
     );
     
@@ -147,12 +149,14 @@ public class ItemUse {
                     || toolClass.equals("hammer")
                     || toolClass.equals("spell")
                     || toolClass.equals("cad")
+                    || toolClass.equals("chisel")
                     || ToolType.PICKAXE.is(handStack.getItem());
             case "axe" -> isCorrectToolType = toolClass.equals(type)
                     || toolClass.equals("mattock")
                     || toolClass.equals("building")
                     || toolClass.equals("spell")
                     || toolClass.equals("cad")
+                    || toolClass.equals("hatchet")
                     || ToolType.AXE.is(handStack.getItem());
             case "shovel" -> isCorrectToolType = toolClass.equals(type)
                     || toolClass.equals("mattock")
@@ -175,6 +179,7 @@ public class ItemUse {
                     || toolClass.equals("building")
                     || toolClass.equals("spell")
                     || toolClass.equals("axe")
+                    || toolClass.equals("modular_sword")
                     || ToolType.SHARP.is(handStack.getItem());
         }
 

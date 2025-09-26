@@ -4,6 +4,8 @@ import java.util.Arrays;
 import java.util.concurrent.CompletableFuture;
 import java.util.function.Function;
 
+import org.jetbrains.annotations.NotNull;
+
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.PackOutput;
 import net.minecraft.data.tags.ItemTagsProvider;
@@ -16,7 +18,6 @@ import net.minecraft.world.level.ItemLike;
 import net.neoforged.neoforge.common.Tags;
 import net.neoforged.neoforge.common.data.ExistingFileHelper;
 
-import org.jetbrains.annotations.NotNull;
 import survivalistessentials.common.TagManager;
 import survivalistessentials.data.integration.SurvivalistEssentialsIntegration;
 import survivalistessentials.items.SurvivalistEssentialsItems;
@@ -42,10 +43,21 @@ public class ModItemTagsProvider extends ItemTagsProvider {
             SurvivalistEssentialsWorld.ROCK_STONE
         );
         this.tag(TagManager.Items.PICKAXE_TOOLS)
+            .addTag(Tags.Items.MINING_TOOL_TOOLS)
+            .addOptionalTag(SurvivalistEssentialsIntegration.mcLoc("pickaxes"))
+            .addOptional(SurvivalistEssentialsIntegration.tconLoc("pickaxe"))
+            .addOptional(SurvivalistEssentialsIntegration.tconLoc("pickadze"))
+            .addOptional(SurvivalistEssentialsIntegration.tconLoc("sledge_hammer"))
+            .addOptional(SurvivalistEssentialsIntegration.tconLoc("vein_hammer"))
+            .addOptional(SurvivalistEssentialsIntegration.tetraLoc("modular_sword"))
             .addOptional(SurvivalistEssentialsIntegration.ieLoc("buzzsaw"))
             .addOptional(SurvivalistEssentialsIntegration.ieLoc("drill"))
             .addOptional(SurvivalistEssentialsIntegration.ieLoc("hammer"));
         this.tag(TagManager.Items.AXE_TOOLS)
+            .addOptionalTag(SurvivalistEssentialsIntegration.mcLoc("axes"))
+            .addOptional(SurvivalistEssentialsIntegration.tconLoc("mattock"))
+            .addOptional(SurvivalistEssentialsIntegration.tconLoc("hand_axe"))
+            .addOptional(SurvivalistEssentialsIntegration.tconLoc("broad_axe"))
             .addOptional(SurvivalistEssentialsIntegration.ieLoc("buzzsaw"));
         builder(
             TagManager.Items.AXE_TOOLS,
@@ -67,10 +79,15 @@ public class ModItemTagsProvider extends ItemTagsProvider {
             SurvivalistEssentialsItems.SHARP_SAW
         );
         this.tag(TagManager.Items.SHOVEL_TOOLS)
+            .addOptionalTag(SurvivalistEssentialsIntegration.mcLoc("shovels"))
+            .addOptional(SurvivalistEssentialsIntegration.tconLoc("mattock"))
+            .addOptional(SurvivalistEssentialsIntegration.tconLoc("pickadze"))
+            .addOptional(SurvivalistEssentialsIntegration.tconLoc("excavator"))
             .addOptional(SurvivalistEssentialsIntegration.ieLoc("drill"));
-        builder(
-            TagManager.Items.HOE_TOOLS
-        );
+        this.tag( TagManager.Items.HOE_TOOLS )
+            .addOptionalTag(SurvivalistEssentialsIntegration.mcLoc("hoes"))
+            .addOptional(SurvivalistEssentialsIntegration.tconLoc("mattock"))
+            .addOptional(SurvivalistEssentialsIntegration.tconLoc("kama"));
         this.tag(TagManager.Items.KNIFE_TOOLS)
             .addOptional(SurvivalistEssentialsIntegration.tsLoc("knife"));
         builder(
@@ -87,7 +104,13 @@ public class ModItemTagsProvider extends ItemTagsProvider {
             SurvivalistEssentialsItems.SHARP_KNIFE
         );
         this.tag(TagManager.Items.SHARP_TOOLS)
+            .addOptional(SurvivalistEssentialsIntegration.tconLoc("kama"))
+            .addOptional(SurvivalistEssentialsIntegration.tconLoc("dagger"))
+            .addOptional(SurvivalistEssentialsIntegration.tconLoc("cleaver"))
+            .addOptional(SurvivalistEssentialsIntegration.tconLoc("sword"))
             .addOptional(SurvivalistEssentialsIntegration.ieLoc("revolver"))
+            .addOptional(SurvivalistEssentialsIntegration.tetraLoc("modular_sword"))
+            .addOptionalTag(SurvivalistEssentialsIntegration.mcLoc("swords"))
             .addTag(TagManager.Items.KNIFE_TOOLS)
             .addTag(TagManager.Items.AXE_TOOLS);
         this.tag(TagManager.Items.SHEAR_TOOLS)
