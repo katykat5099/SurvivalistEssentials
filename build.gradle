@@ -2,7 +2,7 @@ plugins {
     id 'idea'
     id 'maven-publish'
     id 'net.minecraftforge.gradle' version '[6.0,6.2)'
-    id 'org.spongepowered.mixin' version '0.7.+'
+    id 'org.spongepowered.mixin' version '0.7-SNAPSHOT'
     id 'org.parchmentmc.librarian.forgegradle' version '1.+'
     // https://plugins.gradle.org/plugin/me.modmuss50.mod-publish-plugin
     id 'me.modmuss50.mod-publish-plugin' version '1.0.0'
@@ -13,9 +13,10 @@ plugins {
 repositories {
     maven {
         // location of the maven that hosts Mantle and JEI files
-        name = 'Progwml6 maven'
-        url = 'https://dvs1.progwml6.com/files/maven'
+        name = 'Old JEI, Tinkers and Mantle'
+        url 'https://dvs1.progwml6.com/files/maven/'
     }
+
     maven {
         name = 'Curse Maven'
         url = 'https://cursemaven.com'
@@ -23,15 +24,18 @@ repositories {
             includeGroup 'curse.maven'
         }
     }
+
     maven {
         // Patchouli && Provider
-        name = "Blame Jared"
-        url = "https://maven.blamejared.com"
+        name = 'BlameJared Maven (CrT / Bookshelf / JEI (Newer) / vazkii / xyz)'
+        url = 'https://maven.blamejared.com'
     }
+
     maven {
         name = 'Illusive Soulworks'
         url = 'https://maven.theillusivec4.top/'
     }
+
     maven {
         name = 'GeckoLib'
         url 'https://dl.cloudsmith.io/public/geckolib3/geckolib/maven/'
@@ -40,6 +44,7 @@ repositories {
             includeGroup('com.eliotlash.mclib')
         }
     }
+
     maven {
         name = 'wendall911 maven'
         url = 'https://raw.githubusercontent.com/wendall911/maven/main/'
@@ -58,7 +63,7 @@ minecraft {
 
     runs {
         client {
-            workingDirectory project.file("run").canonicalPath
+            workingDirectory project.file('run')
             arg "-mixin.config=${mod_id}.mixins.json"
             property 'forge.logging.console.level', 'debug'
             property 'mixin.env.remapRefMap', 'true'
@@ -112,9 +117,7 @@ mixin {
     config "${mod_id}.mixins.json"
 }
 
-sourceSets.main.resources {
-    srcDir 'src/generated/resources'
-}
+sourceSets.main.resources.srcDir 'src/generated/resources'
 
 dependencies {
     minecraft "net.minecraftforge:forge:${minecraft_version}-${forge_version}"
@@ -210,17 +213,27 @@ jar {
 
 def resourceTargets = ['META-INF/mods.toml', 'pack.mcmeta', '*.mixins.json']
 def replaceProperties = [
-    'version': actualVersion, 'forge_mc_version_range': forge_mc_version_range, 'forge_version_range': forge_version_range,
-    'license': license, 'mod_id': mod_id, 'mod_author': mod_author, 'mod_description': mod_description,
-    'mod_name': mod_name, 'issue_tracker': issue_tracker, 'mod_credits': mod_credits,
-    'mod_update_branch': mod_update_branch
+    'version': actualVersion,
+    'minecraft_version': minecraft_version,
+    'forge_mc_version_range': forge_mc_version_range,
+    'forge_version_range': forge_version_range,
+    'license': license,
+    'mod_id': mod_id,
+    'mod_author': mod_author,
+    'mod_description': mod_description,
+    'mod_display_name': mod_display_name,
+    'mod_name': mod_name,
+    'mod_credits': mod_credits,
+    'mod_update_branch': mod_update_branch,
+    'pack_format': pack_format,
+    'curseforge_slug': curseforge_slug
 ]
 
 processResources {
     duplicatesStrategy(DuplicatesStrategy.FAIL)
     inputs.properties replaceProperties
-    exclude '.cache'
     replaceProperties.put 'project', project
+    exclude '.cache'
 
     filesMatching(resourceTargets) {
         expand replaceProperties
@@ -228,25 +241,6 @@ processResources {
 }
 
 jar.finalizedBy('reobfJar')
-
-publishing {
-    publications {
-        mavenJava(MavenPublication) {
-            groupId project.group
-            artifactId project.archivesBaseName
-            version project.version
-            // This gives us the built obfuscated version Forge requires
-            artifact jar
-        }
-    }
-    repositories {
-        if (System.getenv('local_maven') != null) {
-            maven {
-                url 'file://' + System.getenv('local_maven')
-            }
-        }
-    }
-}
 
 task changelog(type: se.bjurr.gitchangelog.plugin.gradle.GitChangelogTask) {
     file.set(new File(project(":").projectDir.toString() + '/build/libs/changelog.txt'));
@@ -262,7 +256,7 @@ def updates = tasks.register("generateUpdates", Copy) {
 
     it.from("./files/templates/") {
         include 'updates.json'
-        expand 'version': actualVersion, 'minecraft_version': minecraft_version
+        expand replaceProperties
     }
 
     it.into 'files/'
@@ -283,15 +277,24 @@ publishMods {
     modLoaders.addAll(['neoforge', 'forge'])
     dryRun = providers.environmentVariable('DO_RELEASE').getOrNull() == null
 
-    if (project.hasProperty('securseApiKey')) {
+    if (project.hasProperty("${curseforge_api_key_prop}")) {
         curseforge {
-            accessToken = project.securseApiKey
-            projectId = project.securseId
-            projectSlug = project.seSlug
+            accessToken = project.property("${curseforge_api_key_prop}")
+            projectId = "${curseforge_id}"
+            projectSlug = "${curseforge_slug}"
             javaVersions.add(JavaVersion.toVersion("${java_version}"))
             clientRequired = true
             serverRequired = true
             minecraftVersions.addAll("${release_versions}".split(','))
+            optional('actually-harvest')
+            optional('betterdays')
+            optional('charged-charms')
+            optional('creeper-fireworks')
+            optional('homeostatic')
+            optional('magical-psi-revival')
+            optional('simpletextoverlay')
+            optional('ready-player-fun')
+            optional('tinkersurvival')
             optional('configured')
             optional('catalogue')
             optional('fruit-trees')
@@ -317,11 +320,20 @@ publishMods {
             optional('create')
         }
     }
-    if (project.hasProperty('seModrinthId')) {
+    if (project.hasProperty("${modrinth_api_key_prop}")) {
         modrinth {
-            accessToken = project.modrinthKey
-            projectId = project.seModrinthId
+            accessToken = project.property("${modrinth_api_key_prop}")
+            projectId = "${modrinth_id}"
             minecraftVersions.addAll("${release_versions}".split(','))
+            optional('actually-harvest')
+            optional('betterdays')
+            optional('charged-charms')
+            optional('creeper-fireworks-mod')
+            optional('homeostatic')
+            optional('magical-psi-revival')
+            optional('simpletextoverlay')
+            optional('ready-player-fun')
+            optional('tinkersurvival')
             optional('quark')
             optional('allyoucaneat')
             optional('botania')
@@ -334,13 +346,32 @@ publishMods {
             optional('create')
         }
     }
-    if (project.hasProperty('seDiscordWebhook')) {
+    if (project.hasProperty("${discord_webhook_prop}")) {
         discord {
-            webhookUrl = project.seDiscordWebhook
-            dryRunWebhookUrl = project.discordDryrunWebhook
-            username = "wendall911"
+            webhookUrl = project.property("${discord_webhook_prop}")
+            dryRunWebhookUrl = project.property("${discord_dryrun_webhook_prop}")
+            username = "${mod_author}"
             content = changelog.map {
-                "# A new version of Survivalist Essentials for Forge ${minecraft_version} has been released! \n" + it
+                "# A new version of ${mod_display_name} for Forge ${minecraft_version} has been released! \n" + it
+            }
+        }
+    }
+}
+
+publishing {
+    publications {
+        mavenJava(MavenPublication) {
+            groupId project.group
+            artifactId project.archivesBaseName
+            version project.version
+            // This gives us the built obfuscated version Forge requires
+            artifact jar
+        }
+    }
+    repositories {
+        if (System.getenv('local_maven') != null) {
+            maven {
+                url 'file://' + System.getenv('local_maven')
             }
         }
     }
