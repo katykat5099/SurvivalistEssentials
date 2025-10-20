@@ -18,12 +18,11 @@ import net.neoforged.neoforge.event.entity.player.PlayerEvent;
 import survivalistessentials.config.ConfigHandler;
 import survivalistessentials.SurvivalistEssentials;
 
-import static survivalistessentials.SurvivalistEssentials.loc;
+import static survivalistessentials.SurvivalistEssentials.prefix;
 
 public class PlayerEventHandler {
 
-    private static final ResourceLocation STARTING_HEALTH_PENALTY = loc("starting_health_penalty");
-    //private static final UUID STARTING_HEALTH_PENALTY = UUID.fromString("e86dd51f-e5bd-4606-940a-6ffc961b612d");
+    private static final ResourceLocation STARTING_HEALTH_PENALTY = prefix("starting_health_penalty");
 
     @SubscribeEvent
     public static void onPlayerLogin(PlayerEvent.PlayerLoggedInEvent event) {

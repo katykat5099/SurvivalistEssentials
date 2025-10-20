@@ -12,7 +12,7 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.function.BiConsumer;
 
-import static survivalistessentials.SurvivalistEssentials.prefix;
+import static survivalistessentials.SurvivalistEssentials.loc;
 
 public final class SurvivalistEssentialsIntegration {
 
@@ -527,7 +527,7 @@ public final class SurvivalistEssentialsIntegration {
     }
 
     private static ResourceLocation getLoc(String modid, String name) {
-        return prefix(modid, name);
+        return loc(modid, name);
     }
 
 }

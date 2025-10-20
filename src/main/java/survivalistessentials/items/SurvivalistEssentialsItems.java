@@ -18,7 +18,7 @@ import survivalistessentials.SurvivalistEssentials;
 import survivalistessentials.items.item.Bandage;
 import survivalistessentials.items.item.CrudeBandage;
 import survivalistessentials.items.item.Mortar;
-import survivalistessentials.items.item.SurvivalistEssentialsBook;
+//import survivalistessentials.items.item.SurvivalistEssentialsBook;
 import survivalistessentials.items.item.WoodenCup;
 import survivalistessentials.items.tool.CrudeHatchet;
 import survivalistessentials.items.tool.SurvivalKnife;
@@ -26,7 +26,7 @@ import survivalistessentials.items.tool.SurvivalSaw;
 
 import static net.minecraft.world.item.Item.BASE_ATTACK_SPEED_ID;
 
-import static survivalistessentials.SurvivalistEssentials.loc;
+import static survivalistessentials.SurvivalistEssentials.prefix;
 
 public final class SurvivalistEssentialsItems {
 
@@ -43,8 +43,8 @@ public final class SurvivalistEssentialsItems {
     public static Item CLOTH = make("cloth");
 
     // Books
-    public static Item BOOK = registerBook("book");
-    public static Item MODPACK_BOOK = registerBook("modpack_book");
+    //public static Item BOOK = registerBook("book");
+    //public static Item MODPACK_BOOK = registerBook("modpack_book");
 
     // Tools
     public static Item CRUDE_KNIFE = registerKnifeTool("crude_knife", ToolMaterials.FLINT);
@@ -62,15 +62,15 @@ public final class SurvivalistEssentialsItems {
 
     // Bandages
     public static Item CRUDE_BANDAGE = make("crude_bandage", new CrudeBandage(
-        (new Item.Properties().setId(ResourceKey.create(Registries.ITEM, loc("crude_bandage")))).stacksTo(8)
+        (new Item.Properties().setId(ResourceKey.create(Registries.ITEM, prefix("crude_bandage")))).stacksTo(8)
     ), false, true);
     public static Item BANDAGE = make("bandage", new Bandage(
-        (new Item.Properties().setId(ResourceKey.create(Registries.ITEM, loc("bandage")))).stacksTo(16)
+        (new Item.Properties().setId(ResourceKey.create(Registries.ITEM, prefix("bandage")))).stacksTo(16)
     ), false, true);
 
     // Zombie Jesus
     public static Item WOODEN_CUP = make("wooden_cup", new WoodenCup(
-        (new Item.Properties().setId(ResourceKey.create(Registries.ITEM, loc("wooden_cup")))).stacksTo(1)
+        (new Item.Properties().setId(ResourceKey.create(Registries.ITEM, prefix("wooden_cup")))).stacksTo(1)
     ), false, false);
 
     public static void init(BiConsumer<Item, ResourceLocation> consumer) {
@@ -81,18 +81,18 @@ public final class SurvivalistEssentialsItems {
 
     public static Item registerSawBlade(String name) {
         return make(name, new Item(
-            new Item.Properties().setId(ResourceKey.create(Registries.ITEM, loc(name)))
+            new Item.Properties().setId(ResourceKey.create(Registries.ITEM, prefix(name)))
         ), true, false);
     }
 
     private static Item make(String name) {
-        Item item = new Item(new Item.Properties().setId(ResourceKey.create(Registries.ITEM, loc(name))));
+        Item item = new Item(new Item.Properties().setId(ResourceKey.create(Registries.ITEM, prefix(name))));
 
         return make(name, item, false, false);
     }
 
     private static Item make(String name, Item item, boolean isTool, boolean noCategory) {
-        ResourceLocation loc = loc(name);
+        ResourceLocation loc = prefix(name);
 
         ALL.put(loc, item);
 
@@ -108,13 +108,13 @@ public final class SurvivalistEssentialsItems {
     }
 
     private static Item registerKnifeTool(String name, ToolMaterial toolMaterial) {
-        Item knifeTool = new SurvivalKnife(toolMaterial, 1.0F, -1.4F, new Item.Properties().setId(ResourceKey.create(Registries.ITEM, loc(name))));
+        Item knifeTool = new SurvivalKnife(toolMaterial, 1.0F, -1.4F, new Item.Properties().setId(ResourceKey.create(Registries.ITEM, prefix(name))));
 
         return make(name, knifeTool, true, false);
     }
 
     private static Item registerHatchetTool(String name, ToolMaterial toolMaterial) {
-        Item hatchetTool = new CrudeHatchet(toolMaterial, 4, -3.0F, new Item.Properties().setId(ResourceKey.create(Registries.ITEM, loc(name))));
+        Item hatchetTool = new CrudeHatchet(toolMaterial, 4, -3.0F, new Item.Properties().setId(ResourceKey.create(Registries.ITEM, prefix(name))));
 
         return make(name, hatchetTool, true, false);
     }
@@ -124,22 +124,24 @@ public final class SurvivalistEssentialsItems {
             Attributes.ATTACK_SPEED,
             new AttributeModifier(BASE_ATTACK_SPEED_ID, speed, AttributeModifier.Operation.ADD_VALUE),
             EquipmentSlotGroup.MAINHAND
-        ).build()).setId(ResourceKey.create(Registries.ITEM, loc(name))));
+        ).build()).setId(ResourceKey.create(Registries.ITEM, prefix(name))));
 
         return make(name, sawTool, true, false);
     }
 
     private static Item registerMortar(String name) {
-        return make(name, new Mortar(new Item.Properties().setId(ResourceKey.create(Registries.ITEM, loc(name)))), false, false);
+        return make(name, new Mortar(new Item.Properties().setId(ResourceKey.create(Registries.ITEM, prefix(name)))), false, false);
     }
 
+    /*
     public static Item registerBook(String name) {
         return make(name, new SurvivalistEssentialsBook(
-            new Item.Properties().setId(ResourceKey.create(Registries.ITEM, loc(name))),
+            new Item.Properties().setId(ResourceKey.create(Registries.ITEM, prefix(name))),
             name,
             SurvivalistEssentials.MODID
         ), false, true);
     }
+     */
 
     public static Map<ResourceLocation, Item> getAllIngredients() {
         return MISC_ITEMS;
