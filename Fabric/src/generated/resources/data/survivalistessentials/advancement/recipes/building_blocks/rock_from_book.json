@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "survivalistessentials:dirt_from_book"
+        "recipe": "survivalistessentials:rock_from_book"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
@@ -26,7 +26,7 @@
   ],
   "rewards": {
     "recipes": [
-      "survivalistessentials:dirt_from_book"
+      "survivalistessentials:rock_from_book"
     ]
   }
 }

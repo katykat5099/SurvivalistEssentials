@@ -1,11 +1,17 @@
 {
+  "neoforge:conditions": [
+    {
+      "type": "survivalistessentials:config_disabled",
+      "config_disabled": "enableModpackBook"
+    }
+  ],
   "parent": "minecraft:recipes/root",
   "criteria": {
-    "has_intro_book": {
+    "has_loose_rock": {
       "conditions": {
         "items": [
           {
-            "items": "survivalistessentials:book"
+            "items": "survivalistessentials:rock_stone"
           }
         ]
       },
@@ -13,7 +19,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "survivalistessentials:dirt_from_book"
+        "recipe": "survivalistessentials:modpack_book_from_rocks"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
@@ -21,12 +27,12 @@
   "requirements": [
     [
       "has_the_recipe",
-      "has_intro_book"
+      "has_loose_rock"
     ]
   ],
   "rewards": {
     "recipes": [
-      "survivalistessentials:dirt_from_book"
+      "survivalistessentials:modpack_book_from_rocks"
     ]
   }
 }

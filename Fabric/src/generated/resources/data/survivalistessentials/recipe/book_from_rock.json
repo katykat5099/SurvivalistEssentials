@@ -4,10 +4,7 @@
   "group": "books",
   "ingredients": [
     {
-      "item": "minecraft:dirt"
-    },
-    {
-      "item": "minecraft:dirt"
+      "item": "survivalistessentials:rock_stone"
     }
   ],
   "result": {

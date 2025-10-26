@@ -1,4 +1,10 @@
 {
+  "fabric:load_conditions": [
+    {
+      "condition": "survivalistessentials:config_disabled",
+      "config_disabled": "enableModpackBook"
+    }
+  ],
   "parent": "minecraft:recipes/root",
   "criteria": {
     "has_loose_rock": {
@@ -13,7 +19,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "survivalistessentials:book_from_dirt"
+        "recipe": "survivalistessentials:modpack_book_from_rocks"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
@@ -26,7 +32,7 @@
   ],
   "rewards": {
     "recipes": [
-      "survivalistessentials:book_from_dirt"
+      "survivalistessentials:modpack_book_from_rocks"
     ]
   }
 }

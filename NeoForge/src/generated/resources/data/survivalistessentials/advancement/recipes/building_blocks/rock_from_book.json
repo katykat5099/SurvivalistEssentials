@@ -1,11 +1,11 @@
 {
   "parent": "minecraft:recipes/root",
   "criteria": {
-    "has_loose_rock": {
+    "has_intro_book": {
       "conditions": {
         "items": [
           {
-            "items": "survivalistessentials:rock_stone"
+            "items": "survivalistessentials:book"
           }
         ]
       },
@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "survivalistessentials:book_from_dirt"
+        "recipe": "survivalistessentials:rock_from_book"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
@@ -21,12 +21,12 @@
   "requirements": [
     [
       "has_the_recipe",
-      "has_loose_rock"
+      "has_intro_book"
     ]
   ],
   "rewards": {
     "recipes": [
-      "survivalistessentials:book_from_dirt"
+      "survivalistessentials:rock_from_book"
     ]
   }
 }
