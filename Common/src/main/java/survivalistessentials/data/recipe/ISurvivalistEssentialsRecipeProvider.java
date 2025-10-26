@@ -271,17 +271,16 @@ public interface ISurvivalistEssentialsRecipeProvider {
 
         // Book
         ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, SurvivalistEssentialsItems.BOOK)
-            .requires(Items.DIRT)
-            .requires(Items.DIRT)
+            .requires(SurvivalistEssentialsWorld.ROCK_STONE)
             .group("books")
             .unlockedBy("has_loose_rock", _has(rockStone))
-            .save(recipeOutput, prefix("book_from_dirt"));
+            .save(recipeOutput, prefix("book_from_rock"));
 
-        ShapelessRecipeBuilder.shapeless(RecipeCategory.BUILDING_BLOCKS, Items.DIRT, 2)
+        ShapelessRecipeBuilder.shapeless(RecipeCategory.BUILDING_BLOCKS, SurvivalistEssentialsWorld.ROCK_STONE)
             .requires(SurvivalistEssentialsItems.BOOK)
             .group("books")
             .unlockedBy("has_intro_book", _has(SurvivalistEssentialsItems.BOOK))
-            .save(recipeOutput, prefix("dirt_from_book"));
+            .save(recipeOutput, prefix("rock_from_book"));
 
         // Modpack Book
         wrapped = configResourceCondition(recipeOutput, "enableModpackBook");
@@ -290,7 +289,7 @@ public interface ISurvivalistEssentialsRecipeProvider {
             .requires(SurvivalistEssentialsWorld.ROCK_STONE)
             .group("books")
             .unlockedBy("has_loose_rock", _has(rockStone))
-            .save(wrapped, prefix("book_from_rocks"));
+            .save(wrapped, prefix("modpack_book_from_rocks"));
 
         ShapelessRecipeBuilder.shapeless(RecipeCategory.BUILDING_BLOCKS, SurvivalistEssentialsWorld.ROCK_STONE, 2)
             .requires(SurvivalistEssentialsItems.MODPACK_BOOK)
