@@ -283,7 +283,7 @@ public interface ISurvivalistEssentialsRecipeProvider {
             .save(recipeOutput, prefix("rock_from_book"));
 
         // Modpack Book
-        wrapped = configResourceCondition(recipeOutput, "enableModpackBook");
+        wrapped = configResourceCondition(recipeOutput, "disableModpackBook");
         ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, SurvivalistEssentialsItems.MODPACK_BOOK)
             .requires(SurvivalistEssentialsWorld.ROCK_STONE)
             .requires(SurvivalistEssentialsWorld.ROCK_STONE)
