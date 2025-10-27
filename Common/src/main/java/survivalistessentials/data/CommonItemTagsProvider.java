@@ -120,27 +120,6 @@ public class CommonItemTagsProvider extends IntrinsicHolderTagsProvider<Item> {
             SurvivalistEssentialsItems.CRUDE_BANDAGE,
             SurvivalistEssentialsItems.BANDAGE
         );
-        this.tag(TagManager.Items.COOKED_MEAT)
-            .add(Items.COOKED_BEEF)
-            .add(Items.COOKED_CHICKEN)
-            .add(Items.COOKED_COD)
-            .add(Items.COOKED_MUTTON)
-            .add(Items.COOKED_PORKCHOP)
-            .add(Items.COOKED_RABBIT)
-            .add(Items.COOKED_SALMON)
-            .addOptional(SurvivalistEssentialsIntegration.aquaLoc("fish_fillet_cooked"))
-            .addOptional(SurvivalistEssentialsIntegration.aquaLoc("frog_legs_cooked"))
-            .addOptional(SurvivalistEssentialsIntegration.bapLoc("turkey_cooked"))
-            .addOptional(SurvivalistEssentialsIntegration.bapLoc("venisoncooked"))
-            .addOptional(SurvivalistEssentialsIntegration.bapLoc("pheasantcooked"))
-            .addOptional(SurvivalistEssentialsIntegration.bapLoc("crab_meat_cooked"))
-            .addOptional(SurvivalistEssentialsIntegration.bapLoc("turkey_leg_cooked"))
-            .addOptional(SurvivalistEssentialsIntegration.bapLoc("eel_meat_cooked"))
-            .addOptional(SurvivalistEssentialsIntegration.bapLoc("calamari_cooked"))
-            .addOptional(SurvivalistEssentialsIntegration.alexLoc("cooked_lobster_tail"))
-            .addOptional(SurvivalistEssentialsIntegration.alexLoc("cooked_moose_ribs"))
-            .addOptional(SurvivalistEssentialsIntegration.alexLoc("cooked_kangaroo_meat"))
-            .addOptional(SurvivalistEssentialsIntegration.alexLoc("cooked_catfish"));
 
         // Fruit Trees
         addLogVariants(TagManager.Items.CHERRY_LOGS, "cherry", SurvivalistEssentialsIntegration::ftLoc);

@@ -264,11 +264,6 @@ public interface ISurvivalistEssentialsRecipeProvider {
                 .unlockedBy("has_ointment", _has(ointment))
                 .save(recipeOutput);
 
-        // Leather from Smoking
-        SimpleCookingRecipeBuilder.smoking(Ingredient.of(TagManager.Items.COOKED_MEAT), RecipeCategory.FOOD, Items.LEATHER, 0.35F, 100)
-            .unlockedBy("has_cooked_meat", _has(TagManager.Items.COOKED_MEAT))
-            .save(recipeOutput, prefix("leather_from_cooked_meat_smoking"));
-
         // Book
         ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, SurvivalistEssentialsItems.BOOK)
             .requires(SurvivalistEssentialsWorld.ROCK_STONE)
