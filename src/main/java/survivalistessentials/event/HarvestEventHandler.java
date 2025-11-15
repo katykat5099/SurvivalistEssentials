@@ -10,35 +10,34 @@ import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.ClipContext;
-import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.Vec3;
-
 import net.minecraftforge.common.Tags;
 import net.minecraftforge.common.util.FakePlayer;
+import net.minecraftforge.event.TagsUpdatedEvent;
 import net.minecraftforge.event.entity.ProjectileImpactEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.event.level.BlockEvent;
-import net.minecraftforge.event.TagsUpdatedEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.ModList;
-
-import survivalistessentials.data.integration.SurvivalistEssentialsIntegration;
-import technology.roughness.whitenoise.util.ResourceLocationHelper;
+import net.minecraftforge.fml.common.Mod;
 import tschipp.carryon.common.carry.CarryOnData;
 import tschipp.carryon.common.carry.CarryOnDataManager;
 
+import technology.roughness.whitenoise.util.ResourceLocationHelper;
+
+import survivalistessentials.SurvivalistEssentials;
 import survivalistessentials.common.HarvestBlock;
 import survivalistessentials.common.TagManager;
 import survivalistessentials.config.ConfigHandler;
+import survivalistessentials.data.integration.SurvivalistEssentialsIntegration;
 import survivalistessentials.mixin.AbstractBlockStateAccessor;
 import survivalistessentials.sound.Sounds;
-import survivalistessentials.SurvivalistEssentials;
 import survivalistessentials.util.Chat;
 import survivalistessentials.util.ItemUse;
 import survivalistessentials.util.ToolType;
@@ -83,8 +82,10 @@ public class HarvestEventHandler {
         if (ModList.get().isLoaded(SurvivalistEssentialsIntegration.CREATE_MODID)) {
             final ItemStack handStack = player.getMainHandItem();
 
-            alwaysBreakable = ResourceLocationHelper.getModId(handStack).equals(SurvivalistEssentialsIntegration.CREATE_MODID)
-                && ResourceLocationHelper.getModId(state.getBlock()).equals(SurvivalistEssentialsIntegration.CREATE_MODID);
+            if (ResourceLocationHelper.getModId(handStack).equals(SurvivalistEssentialsIntegration.CREATE_MODID)
+                    && ResourceLocationHelper.getModId(state.getBlock()).equals(SurvivalistEssentialsIntegration.CREATE_MODID)) {
+                alwaysBreakable = true;
+            }
         }
 
         if (!alwaysBreakable && !player.isCreative()) {
